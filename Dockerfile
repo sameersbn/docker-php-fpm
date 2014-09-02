@@ -8,6 +8,5 @@ RUN apt-get update \
 
 COPY pool.d/ /etc/php5/fpm/pool.d/
 EXPOSE 9000
-# Suggested Volume
-#VOLUME ["/var/run/php5-fpm"]
+VOLUME ["/var/run/php5-fpm"]
 CMD ["/usr/sbin/php5-fpm"]
