@@ -2,7 +2,8 @@ FROM sameersbn/ubuntu:14.04.20150323
 MAINTAINER sameer@damagehead.com
 
 RUN apt-get update \
- && apt-get install -y php5-common php5-cli php5-fpm php5-mysql php5-pgsql php5-gd \
+ && apt-get install -y php5-common php5-cli php5-fpm \
+      php5-mysql php5-pgsql php5-gd php-mail php-net-smtp \
  && sed 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf \
  && rm -rf /var/lib/apt/lists/* # 20150323
 
