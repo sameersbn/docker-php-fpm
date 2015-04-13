@@ -8,7 +8,6 @@ RUN apt-get update \
       php-mail php-net-smtp php-apc php-xml-parser php-net-ftp \
  && sed 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf \
  && sed 's/^output_buffering/; output_buffering/' -i /etc/php5/fpm/php.ini \
- && sed 's/^;default_charset = .*/default_charset = "UTF-8"/' -i /etc/php5/fpm/php.ini \
  && rm -rf /var/lib/apt/lists/* # 20150323
 
 COPY pool.d/ /etc/php5/fpm/pool.d/
