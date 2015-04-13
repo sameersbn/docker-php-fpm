@@ -4,7 +4,7 @@ MAINTAINER sameer@damagehead.com
 RUN apt-get update \
  && apt-get install -y php5-common php5-cli php5-fpm \
       php5-mysql php5-pgsql php5-gd php5-intl php5-ldap \
-      php-mail php-net-smtp php-apc \
+      php-mail php-net-smtp php-apc php-xml-parser \
  && sed 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf \
  && rm -rf /var/lib/apt/lists/* # 20150323
 
