@@ -9,6 +9,6 @@ RUN apt-get update \
  && sed 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf \
  && rm -rf /var/lib/apt/lists/* # 20150604
 
+EXPOSE 9000
 COPY pool.d/ /etc/php5/fpm/pool.d/
-VOLUME ["/var/run/php5-fpm"]
 CMD ["/usr/sbin/php5-fpm"]
