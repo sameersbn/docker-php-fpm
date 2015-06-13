@@ -1,4 +1,4 @@
-FROM sameersbn/ubuntu:14.04.20150604
+FROM sameersbn/ubuntu:14.04.20150613
 MAINTAINER sameer@damagehead.com
 
 RUN apt-get update \
@@ -7,7 +7,7 @@ RUN apt-get update \
       php5-curl php5-mcrypt php5-gmp php5-imagick php5-apcu \
       php-mail php-net-smtp php-xml-parser php-net-ftp \
  && sed 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf \
- && rm -rf /var/lib/apt/lists/* # 20150604
+ && rm -rf /var/lib/apt/lists/* # 20150613
 
 COPY pool.d/ /etc/php5/fpm/pool.d/
 VOLUME ["/var/run/php5-fpm"]
