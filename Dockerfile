@@ -10,5 +10,6 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/* # 20150613
 
 COPY pool.d/ /etc/php5/fpm/pool.d/
-VOLUME ["/var/run/php5-fpm"]
 CMD ["/usr/sbin/php5-fpm"]
+
+EXPOSE 9000
