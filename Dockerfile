@@ -1,6 +1,8 @@
 FROM sameersbn/ubuntu:14.04.20150613
 MAINTAINER sameer@damagehead.com
 
+ENV PHP_FPM_USER=www-data
+
 RUN apt-get update \
  && apt-get install -y php5-common php5-cli php5-fpm \
       php5-mysql php5-pgsql php5-gd php5-intl php5-ldap \
