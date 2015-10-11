@@ -1,4 +1,4 @@
 all: build
 
 build:
-	@docker build --tag=${USER}/php5-fpm .
+	@docker build --tag=quay.io/sameersbn/php5-fpm .
