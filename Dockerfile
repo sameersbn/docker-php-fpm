@@ -9,7 +9,7 @@ FROM ubuntu:bionic-20180526
 
 LABEL maintainer="sameer@damagehead.com"
 
-ENV PHP_VERSION=7.1 \
+ENV PHP_VERSION=7.2 \
     PHP_FPM_USER=www-data
 
 COPY --from=add-apt-repositories /etc/apt/trusted.gpg /etc/apt/trusted.gpg
@@ -24,6 +24,6 @@ RUN apt-get update \
  && sed -i 's/^listen = .*/listen = 0.0.0.0:9000/' /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf \
  && rm -rf /var/lib/apt/lists/*
 
-CMD ["/usr/sbin/php-fpm7.1", "-F"]
+CMD ["/usr/sbin/php-fpm7.2", "-F"]
 
 EXPOSE 9000
