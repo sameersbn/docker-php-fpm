@@ -1,18 +1,29 @@
-FROM ubuntu:trusty-20180712
+FROM ubuntu:bionic-20180526 AS add-apt-repositories
+
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y gnupg \
+ && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C \
+ && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu bionic main" >> /etc/apt/sources.list
+
+FROM ubuntu:bionic-20180526
 
 LABEL maintainer="sameer@damagehead.com"
 
-ENV PHP_FPM_USER=www-data
+ENV PHP_VERSION=5.6 \
+    PHP_FPM_USER=www-data
 
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C \
- && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu trusty main" >> /etc/apt/sources.list \
- && apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y php5-fpm php5-cli php5-pgsql php5-mysql php5-gd \
- && sed 's/;daemonize = yes/daemonize = no/' -i /etc/php5/fpm/php-fpm.conf \
+COPY --from=add-apt-repositories /etc/apt/trusted.gpg /etc/apt/trusted.gpg
+
+COPY --from=add-apt-repositories /etc/apt/sources.list /etc/apt/sources.list
+
+RUN apt-get update \
+ && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+      php${PHP_VERSION}-fpm php${PHP_VERSION}-cli php${PHP_VERSION}-gd \
+      php${PHP_VERSION}-pgsql php${PHP_VERSION}-mysql \
+ && mkdir -p /run/php/ \
+ && sed -i 's/^listen = .*/listen = 0.0.0.0:9000/' /etc/php/${PHP_VERSION}/fpm/pool.d/www.conf \
  && rm -rf /var/lib/apt/lists/*
 
-COPY pool.d/ /etc/php5/fpm/pool.d/
-
-CMD ["/usr/sbin/php5-fpm"]
+CMD ["/usr/sbin/php-fpm5.6", "-F"]
 
 EXPOSE 9000
