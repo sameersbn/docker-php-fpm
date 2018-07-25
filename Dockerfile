@@ -1,5 +1,6 @@
-FROM sameersbn/ubuntu:14.04.20170123
-MAINTAINER sameer@damagehead.com
+FROM ubuntu:trusty-20180712
+
+LABEL maintainer="sameer@damagehead.com"
 
 ENV PHP_FPM_USER=www-data
 
@@ -11,6 +12,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 14AA40EC0831756
  && rm -rf /var/lib/apt/lists/*
 
 COPY pool.d/ /etc/php5/fpm/pool.d/
+
 CMD ["/usr/sbin/php5-fpm"]
 
 EXPOSE 9000
